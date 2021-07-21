@@ -1,55 +1,141 @@
 #include<STD_TYPES.h>
 #include<BIT_MATH.h>
 
+#include<RCC_private.h>
+#include<RCC_config.h>
 #include<RCC_interface.h>
 
-
-u8 RCC_u8SelectPLLSource(u8 Copy_PLLSource)
+u8 RCC_u8ClockInit(void)
 {
-    switch (Copy_PLLSource)
-    {
-    case HSI:
-        
-    break;
+    u8 Local_u8ErrorState = STD_TYPES_OK;
 
-    case HSE:
-    
-    break;
+    #if (RCC_SYSTEM_CLOCK == HSI)
+        SET_BIT(RCC->CR, HSION);
+        SET_BITS(RCC->CFGR, SW, HSI);
 
-    case PLL:
-    
-    break;
+    #elif (RCC_SYSTEM_CLOCK == HSE)
+        SET_BIT(RCC->CR, HSEON);
+        SET_BITS(RCC->CFGR, SW, HSE);
+        RCC_u8SetClockSecuritySystem();
 
-    default:
-        return 0;
-        break;
-    }
-    
-    return 1;
+    #elif (RCC_SYSTEM_CLOCK == PLL)
+        SET_BIT(RCC->CR, PLLON);
+        SET_BITS(RCC->CFGR, SW, PLL);
+        RCC_u8SelectPLLSource();
+
+    #else
+        #error "Invalid clock source"
+
+    #endif
+
+    return Local_u8ErrorState;
 }
 
-u8 RCC_u8SelectSystemClockSource(u8 Copy_u8ClockSource)
+u8 RCC_u8SelectPLLSource(void)
 {
-    switch (Copy_u8ClockSource)
-    {
-    case HSI:
-        
-    break;
+    u8 Local_u8ErrorState = STD_TYPES_OK;
 
-    case HSE:
-    
-    break;
+    #if   (RCC_PLL_CLOCK_SOURCE == PLL_HSE)
+        SET_BIT(RCC->CFGR, PLLSRC);
 
-    case PLL:
-    
-    break;
+    #else (RCC_PLL_CLOCK_SOURCE == PLL_HSI)
+        CLR_BIT(RCC->CFGR, PLLSRC);
 
-    default:
-        return 0;
-        break;
-    }
-    
-    return 1;
+    #endif
+
+    return Local_u8ErrorState;
 }
 
-u8 RCC_u8EnablePeripheralBus(u8 Copy_u8BusName);
+u8 RCC_u8SetClockSecuritySystem(void)
+{
+    u8 Local_u8ErrorState = STD_TYPES_OK;
+
+    #if RCC_CLOCK_SECURITY_SYSTEM == CSS_OFF
+        CLR_BIT(RCC->CR, CSSON);
+
+    #else
+        SET_BIT(RCC->CR, CSSON);
+
+    #endif
+
+    return Local_u8ErrorState;
+}
+
+u8 RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource)
+{
+    u8 Local_u8ErrorState = STD_TYPES_OK;
+
+    SET_BITS(RCC->CFGR, MCO, Copy_u8OutPutSource);
+    if (GET_BITS(RCC->CFGR, MCO, 0b111) != Copy_u8OutPutSource)
+    {
+        Local_u8ErrorState = STD_TYPES_NOK;
+    }
+    
+    return Local_u8ErrorState;
+}
+
+u8 RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
+{
+    u8 Local_u8ErrorState = STD_TYPES_OK;
+
+    if (Copy_u8Peripheral > 31)
+    {
+        Local_u8ErrorState = STD_TYPES_NOK;
+    }
+    else
+    {
+        switch (Copy_u8Bus)
+        {
+        case RCC_u8AHB_Bus:
+            SET_BIT(RCC->AHBENR, Copy_u8Peripheral);
+            break;
+        
+        case RCC_u8APB1_BUS:
+            SET_BIT(RCC->APB1ENR, Copy_u8Peripheral);
+            break;
+        
+        case RCC_u8APB2_BUS:
+            SET_BIT(RCC->APB2ENR, Copy_u8Peripheral);
+            break;
+        
+        default:
+            Local_u8ErrorState = STD_TYPES_NOK;
+            break;
+        }
+    }
+
+    return Local_u8ErrorState;
+}
+
+u8 RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
+{
+        u8 Local_u8ErrorState = STD_TYPES_OK;
+
+    if (Copy_u8Peripheral > 31)
+    {
+        Local_u8ErrorState = STD_TYPES_NOK;
+    }
+    else
+    {
+        switch (Copy_u8Bus)
+        {
+        case RCC_u8AHB_Bus:
+            CLR_BIT(RCC->AHBENR, Copy_u8Peripheral);
+            break;
+        
+        case RCC_u8APB1_BUS:
+            CLR_BIT(RCC->APB1ENR, Copy_u8Peripheral);
+            break;
+        
+        case RCC_u8APB2_BUS:
+            CLR_BIT(RCC->APB2ENR, Copy_u8Peripheral);
+            break;
+        
+        default:
+            Local_u8ErrorState = STD_TYPES_NOK;
+            break;
+        }
+    }
+
+    return Local_u8ErrorState;
+}
