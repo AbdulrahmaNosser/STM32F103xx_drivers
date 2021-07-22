@@ -14,8 +14,6 @@
 #define RCC_u8MCO_PLL     0b111
 
 u8 RCC_u8ClockInit(void);
-u8 RCC_u8SelectPLLSource(void);
-u8 RCC_u8SetClockSecuritySystem(void);
 u8 RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource);
 u8 RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral);
 u8 RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral);

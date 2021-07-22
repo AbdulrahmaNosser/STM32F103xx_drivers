@@ -31,7 +31,7 @@ u8 RCC_u8ClockInit(void)
     return Local_u8ErrorState;
 }
 
-u8 RCC_u8SelectPLLSource(void)
+u8 Private_u8SelectPLLSource(void)
 {
     u8 Local_u8ErrorState = STD_TYPES_OK;
 
@@ -46,7 +46,7 @@ u8 RCC_u8SelectPLLSource(void)
     return Local_u8ErrorState;
 }
 
-u8 RCC_u8SetClockSecuritySystem(void)
+u8 Private_u8SetClockSecuritySystem(void)
 {
     u8 Local_u8ErrorState = STD_TYPES_OK;
 
