@@ -5,9 +5,11 @@
 #include<RCC_config.h>
 #include<RCC_interface.h>
 
-u8 RCC_u8ClockInit(void)
+#include<stm32f103xx.h>
+
+ERROR_STATE_t RCC_u8ClockInit(void)
 {
-    u8 Local_u8ErrorState = STD_TYPES_OK;
+    ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
     #if (RCC_SYSTEM_CLOCK == HSI)
         SET_BIT(RCC->CR, HSION);
@@ -31,9 +33,9 @@ u8 RCC_u8ClockInit(void)
     return Local_u8ErrorState;
 }
 
-u8 Private_u8SelectPLLSource(void)
+ERROR_STATE_t Private_u8SelectPLLSource(void)
 {
-    u8 Local_u8ErrorState = STD_TYPES_OK;
+    ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
     #if   (RCC_PLL_CLOCK_SOURCE == PLL_HSE)
         SET_BIT(RCC->CFGR, PLLSRC);
@@ -46,9 +48,9 @@ u8 Private_u8SelectPLLSource(void)
     return Local_u8ErrorState;
 }
 
-u8 Private_u8SetClockSecuritySystem(void)
+ERROR_STATE_t Private_u8SetClockSecuritySystem(void)
 {
-    u8 Local_u8ErrorState = STD_TYPES_OK;
+    ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
     #if RCC_CLOCK_SECURITY_SYSTEM == CSS_OFF
         CLR_BIT(RCC->CR, CSSON);
@@ -61,9 +63,9 @@ u8 Private_u8SetClockSecuritySystem(void)
     return Local_u8ErrorState;
 }
 
-u8 RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource)
+ERROR_STATE_t RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource)
 {
-    u8 Local_u8ErrorState = STD_TYPES_OK;
+    ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
     SET_BITS(RCC->CFGR, MCO, Copy_u8OutPutSource);
     if (GET_BITS(RCC->CFGR, MCO, 0b111) != Copy_u8OutPutSource)
@@ -74,9 +76,9 @@ u8 RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource)
     return Local_u8ErrorState;
 }
 
-u8 RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
+ERROR_STATE_t RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
 {
-    u8 Local_u8ErrorState = STD_TYPES_OK;
+    ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
     if (Copy_u8Peripheral > 31)
     {
@@ -86,15 +88,15 @@ u8 RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
     {
         switch (Copy_u8Bus)
         {
-        case RCC_u8AHB_Bus:
+        case STM32_u8AHB_Bus:
             SET_BIT(RCC->AHBENR, Copy_u8Peripheral);
             break;
         
-        case RCC_u8APB1_BUS:
+        case STM32_u8APB1_BUS:
             SET_BIT(RCC->APB1ENR, Copy_u8Peripheral);
             break;
         
-        case RCC_u8APB2_BUS:
+        case STM32_u8APB2_BUS:
             SET_BIT(RCC->APB2ENR, Copy_u8Peripheral);
             break;
         
@@ -107,9 +109,9 @@ u8 RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
     return Local_u8ErrorState;
 }
 
-u8 RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
+ERROR_STATE_t RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
 {
-        u8 Local_u8ErrorState = STD_TYPES_OK;
+        ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
     if (Copy_u8Peripheral > 31)
     {
@@ -119,15 +121,15 @@ u8 RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
     {
         switch (Copy_u8Bus)
         {
-        case RCC_u8AHB_Bus:
+        case STM32_u8AHB_Bus:
             CLR_BIT(RCC->AHBENR, Copy_u8Peripheral);
             break;
         
-        case RCC_u8APB1_BUS:
+        case STM32_u8APB1_BUS:
             CLR_BIT(RCC->APB1ENR, Copy_u8Peripheral);
             break;
         
-        case RCC_u8APB2_BUS:
+        case STM32_u8APB2_BUS:
             CLR_BIT(RCC->APB2ENR, Copy_u8Peripheral);
             break;
         

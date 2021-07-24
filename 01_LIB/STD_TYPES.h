@@ -11,7 +11,16 @@ typedef float               f32;
 typedef double              f64;
 typedef long double         f128;
 
-#define STD_TYPES_OK        1
-#define STD_TYPES_NOK       1
+typedef enum
+{
+    STD_TYPES_NOK,
+    STD_TYPES_OK
+}ERROR_STATE_t;
+
+typedef enum
+{
+    STD_TYPES_LOW,
+    STD_TYPES_HIGH
+}PIN_VALUE_t;
 
 #endif
