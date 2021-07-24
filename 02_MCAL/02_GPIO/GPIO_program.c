@@ -61,13 +61,14 @@ ERROR_STATE_t GPIO_u8PinWrite  (GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8Pin
 {
     if (Copy_u8Value)
     {
-        SET_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
+        SET_BIT(Copy_u8PortAddress->BSRR, Copy_u8PinNumber);
     }
     else
     {
-        CLR_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
+        SET_BIT(Copy_u8PortAddress->BRR, Copy_u8PinNumber);
     }
 }
+
 ERROR_STATE_t GPIO_u8PinRead   (GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8PinNumber Copy_u8PinNumber, PIN_VALUE_t* Copy_u8ReturnValue)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
@@ -76,6 +77,7 @@ ERROR_STATE_t GPIO_u8PinRead   (GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8Pin
 
     return Local_u8ErrorState;
 }
+
 ERROR_STATE_t GPIO_u8PinToggle (GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8PinNumber Copy_u8PinNumber)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
