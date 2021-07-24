@@ -1,11 +1,12 @@
 #include<STD_TYPES.h>
 #include<BIT_MATH.h>
 
+#include<stm32f103xx.h>
+
+#include<RCC_interface.h>
 #include<RCC_private.h>
 #include<RCC_config.h>
-#include<RCC_interface.h>
 
-#include<stm32f103xx.h>
 
 ERROR_STATE_t RCC_u8ClockInit(void)
 {
@@ -76,7 +77,7 @@ ERROR_STATE_t RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource)
     return Local_u8ErrorState;
 }
 
-ERROR_STATE_t RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
+ERROR_STATE_t RCC_u8EnablePeripheralBus(STM32_u8Bus_t Copy_u8Bus, u8 Copy_u8Peripheral)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
@@ -109,7 +110,7 @@ ERROR_STATE_t RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
     return Local_u8ErrorState;
 }
 
-ERROR_STATE_t RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral)
+ERROR_STATE_t RCC_u8DisablePeripheralBus(STM32_u8Bus_t Copy_u8Bus, u8 Copy_u8Peripheral)
 {
         ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 

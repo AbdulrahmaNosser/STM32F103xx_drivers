@@ -23,4 +23,5 @@ typedef enum
     STD_TYPES_HIGH
 }PIN_VALUE_t;
 
+#define NULL_p_t ((void*)0) 
 #endif

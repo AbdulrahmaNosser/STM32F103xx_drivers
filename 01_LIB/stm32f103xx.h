@@ -12,12 +12,12 @@
 /********************** Buses **********************/
 
 
-enum STM32_u8Buses
+typedef enum STM32_u8Buses
 {
     STM32_u8AHB_Bus,
     STM32_u8APB1_BUS,
     STM32_u8APB2_BUS,
-};
+}STM32_u8Bus_t;
 
 // Peripheral buses
 #define GPIOA_u8Bus STM32_u8APB2_BUS
@@ -127,12 +127,6 @@ enum PLL_SOURCE_OPTIONS
     PLL_HSE
 };
 
-// Functions
-ERROR_STATE_t RCC_u8ClockInit(void);
-ERROR_STATE_t RCC_u8MCUClockOutput(u8 Copy_u8OutPutSource);
-ERROR_STATE_t RCC_u8EnablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral);
-ERROR_STATE_t RCC_u8DisablePeripheralBus(u8 Copy_u8Bus, u8 Copy_u8Peripheral);
-
 /********************** RCC **********************/
 
 
@@ -207,5 +201,45 @@ typedef enum
 
 
 /********************** GPIO **********************/
+
+/********************** STK **********************/
+
+
+typedef struct
+{
+    volatile u32 CTRL;
+    volatile u32 LOAD;
+    volatile u32 VAL;
+    volatile u32 CALIB;
+}STK_REGISTERS_t;
+
+#define STK ((STK_REGISTERS_t*) 0xE000E010)
+
+typedef enum STK_enuCTRLBits
+{
+    ENABLE,
+    TICKINT,
+    CLKSOURCE,
+    COUNTFLAG = 16
+}STK_u8CTRLBits_t;
+
+typedef enum STK_enuLOADBits
+{
+    RELOAD
+}STK_u8LOADBits_t;
+
+typedef enum STK_enuVALBits
+{
+    CURRENT
+}STK_u8VALBits_t;
+
+typedef enum STK_enuCALIBBits
+{
+    TENMS,
+    SKEW = 30,
+    NOREF
+}STK_u8CALIBBits_t;
+
+/********************** STK **********************/
 
 #endif
