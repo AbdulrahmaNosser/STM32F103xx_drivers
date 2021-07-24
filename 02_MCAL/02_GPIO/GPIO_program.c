@@ -14,10 +14,10 @@ ERROR_STATE_t GPIO_PinMode(GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8PinNumbe
     if ( !(Copy_u8PortAddress < GPIOA) || !(Copy_u8PortAddress > GPIOG))
     {
         //checks if pin falls in CRL
-        if (Copy_u8PinNumber > GPIO_u8Pin7)
+        if (Copy_u8PinNumber <= GPIO_u8Pin7)
         {
             // clear bits
-            CLR_BITS(Copy_u8PortAddress->CRL, (Copy_u8PinNumber * 4), 0b1111 );
+            CLR_BITS(Copy_u8PortAddress->CRL, (Copy_u8PinNumber * 4), 0b0000 );
 
             // multiply pin number by 4 to set it propper bit in the register
             // 0b01111 is a mask for MODEx and CNFx bits 
@@ -27,7 +27,7 @@ ERROR_STATE_t GPIO_PinMode(GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8PinNumbe
         else if(Copy_u8PinNumber < GPIO_u8Pin15)
         {
             // clear bits
-            CLR_BITS(Copy_u8PortAddress->CRH, ( (Copy_u8PinNumber - 8) * 4), 0b1111 );
+            CLR_BITS(Copy_u8PortAddress->CRH, ( (Copy_u8PinNumber - 8) * 4), 0b0000 );
 
             // subtract 8 from the pin number to map it to the CRH register starting from 0
             SET_BITS(Copy_u8PortAddress->CRH, ( (Copy_u8PinNumber - 8) * 4), (Copy_u8Mode & 0b01111) );

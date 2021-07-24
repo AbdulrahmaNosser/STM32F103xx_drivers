@@ -5,7 +5,7 @@
 //                              STK_ConfigAHB
 //                              STK_ConfigAHBDiv8
 
-#define STK_u8ClockSource STK_ConfigAHBDiv8
+#define STK_u8ClockSource STK_ConfigAHB
 
 
 #endif

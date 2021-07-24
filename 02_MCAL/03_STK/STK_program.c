@@ -42,6 +42,7 @@ ERROR_STATE_t STK_SetBusyWait(u32 Copy_u32NumOfTicks)
 
     // wait for timer
     while (! GET_BIT(STK->CTRL, COUNTFLAG))
+    {}
     // disable timer
     CLR_BIT(STK->CTRL, ENABLE);
     

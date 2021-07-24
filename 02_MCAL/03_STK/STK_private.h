@@ -8,15 +8,15 @@
 // call back function pointer
 static void (*STK_pFunction)(void) = NULL_p_t;
 
-// timer interval mode global variable
-static STK_TimerIntervalMode_t STK_u8TimerIntervalMode;
-
 //
 typedef enum STK_u8TimerIntervalMode
 {
     STK_u8TimerSingle,
     STK_u8TimerPeriodic
 }STK_TimerIntervalMode_t;
+
+// timer interval mode global variable
+static STK_TimerIntervalMode_t STK_u8TimerIntervalMode;
 
 // function handler
 ERROR_STATE_t STK_u8PrivateFunctionHandler(void);
