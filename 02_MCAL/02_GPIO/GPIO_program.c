@@ -9,29 +9,49 @@ ERROR_STATE_t GPIO_u8PinMode(GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8PinNum
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 
-    // enable GPIO bus
-    GPIO_Privateu8EnableBus(Copy_u8PortAddress);
+    if ( !(Copy_u8PortAddress < GPIOA) || !(Copy_u8PortAddress > GPIOG))
+    {
+        // enable GPIO bus
+        GPIO_Privateu8EnableBus(Copy_u8PortAddress);
 
-    //checks if pin falls in CRL
-    if (Copy_u8PinNumber > GPIO_u8Pin7)
-    {   // multiply pin number by 4 to set it propper bit in the register
-        // 0b01111 is a mask for MODEx and CNFx bits 
-        SET_BITS(Copy_u8PortAddress->CRL, (Copy_u8PinNumber * 4), (Copy_u8Mode & 0b01111) );
+        //checks if pin falls in CRL
+        if (Copy_u8PinNumber > GPIO_u8Pin7)
+        {
+            // clear bits
+            CLR_BITS(Copy_u8PortAddress->CRL, (Copy_u8PinNumber * 4), 0b1111 );
+
+            // multiply pin number by 4 to set it propper bit in the register
+            // 0b01111 is a mask for MODEx and CNFx bits 
+            SET_BITS(Copy_u8PortAddress->CRL, (Copy_u8PinNumber * 4), (Copy_u8Mode & 0b01111) );
+        }
+        // if pin falls in CRH
+        else if(Copy_u8PinNumber < GPIO_u8Pin15)
+        {
+            // clear bits
+            CLR_BITS(Copy_u8PortAddress->CRH, ( (Copy_u8PinNumber - 8) * 4), 0b1111 );
+
+            // subtract 8 from the pin number to map it to the CRH register starting from 0
+            SET_BITS(Copy_u8PortAddress->CRH, ( (Copy_u8PinNumber - 8) * 4), (Copy_u8Mode & 0b01111) );
+        }
+        else
+        {
+            Local_u8ErrorState = STD_TYPES_NOK;
+        }
+
+        // set ODR register for pul-up or pull-down functionality
+        if (Copy_u8Mode & 0b10000)
+        {
+            SET_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
+        }
+        else
+        {
+            CLR_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
+        }
+
     }
-    // if pin falls in CRH
     else
     {
-        // subtract 8 from the pin number to map it to the CRH register starting from 0
-        SET_BITS(Copy_u8PortAddress->CRH, ( (Copy_u8PinNumber - 8) * 4), (Copy_u8Mode & 0b01111) );
-    }
-    // set ODR register for pul-up or pull-down functionality
-    if (Copy_u8Mode & 0b10000)
-    {
-        SET_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
-    }
-    else
-    {
-        CLR_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
+        Local_u8ErrorState = STD_TYPES_NOK;
     }
 
     return Local_u8ErrorState;
