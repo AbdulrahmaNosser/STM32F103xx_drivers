@@ -4,7 +4,7 @@
 #include<stm32f103xx.h>
 #include<NVIC_interface.h>
 
-u8 NVIC_u8EnableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
+ERROR_STATE_t NVIC_u8EnableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_NOK;
 
@@ -24,7 +24,7 @@ u8 NVIC_u8EnableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 }
 
 
-u8 NVIC_u8DisableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
+ERROR_STATE_t NVIC_u8DisableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_NOK;
 
@@ -43,7 +43,7 @@ u8 NVIC_u8DisableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
     return Local_u8ErrorState;
 }
 
-u8 NVIC_u8SetInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
+ERROR_STATE_t NVIC_u8SetInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_NOK;
 
@@ -62,7 +62,7 @@ u8 NVIC_u8SetInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
     return Local_u8ErrorState;
 }
 
-u8 NVIC_u8ClearInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
+ERROR_STATE_t NVIC_u8ClearInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_NOK;
 
@@ -81,7 +81,7 @@ u8 NVIC_u8ClearInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
     return Local_u8ErrorState;
 }
 
-u8 NVIC_u8InterruptIsActive(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8* Copy_pu8InterruptStatus)
+ERROR_STATE_t NVIC_u8InterruptIsActive(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8* Copy_pu8InterruptStatus)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_NOK;
 
@@ -100,7 +100,7 @@ u8 NVIC_u8InterruptIsActive(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8* Copy_pu8In
     return Local_u8ErrorState;
 }
 
-u8 NVIC_u8SetGroupPriority(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8 Copy_u8GroupPriority)
+ERROR_STATE_t NVIC_u8SetGroupPriority(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8 Copy_u8GroupPriority)
 {
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
 

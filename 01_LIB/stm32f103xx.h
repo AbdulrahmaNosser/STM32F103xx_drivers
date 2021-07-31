@@ -256,7 +256,7 @@ typedef struct
     volatile u32 reserved_4[29];
     volatile u32 IABR[3];
     volatile u32 reserved_5[61];
-    volatile u32 IPR[9];
+    volatile u32 IPR[20];
 }NVIC_REGISTERS_t;
 
 #define NVIC ((NVIC_REGISTERS_t*) 0xE000E100)
@@ -385,5 +385,49 @@ typedef enum SCB_AIRCR_BITS_t
 }SCB_AIRCR_BITS_t;
 
 /********************** SCB **********************/
+
+/********************** EXTI **********************/
+
+typedef struct
+{
+    volatile u32 IMR;
+    volatile u32 EMR;
+    volatile u32 RTSR;
+    volatile u32 FTSR;
+    volatile u32 SWIER;
+    volatile u32 PR;
+}EXTI_REGISTERS_t;
+
+#define EXTI ((EXTI_REGISTERS_t*)0x40010400)
+
+typedef enum EXTI_ID_t
+{
+    EXTI_ID_GPIOx_01,
+    EXTI_ID_GPIOx_02,
+    EXTI_ID_GPIOx_03,
+    EXTI_ID_GPIOx_04,
+    EXTI_ID_GPIOx_05,
+    EXTI_ID_GPIOx_06,
+    EXTI_ID_GPIOx_07,
+    EXTI_ID_GPIOx_08,
+    EXTI_ID_GPIOx_09,
+    EXTI_ID_GPIOx_10,
+    EXTI_ID_GPIOx_11,
+    EXTI_ID_GPIOx_12,
+    EXTI_ID_GPIOx_13,
+    EXTI_ID_GPIOx_14,
+    EXTI_ID_GPIOx_15,
+    EXTI_ID_PVD,
+    EXTI_ID_RTC,
+    EXTI_ID_USB,
+    EXTI_ID_Ethernet
+}EXTI_ID_t;
+
+typedef enum EXTI_MASK_STATUS_t
+{
+    EXTI_MASKED,
+    EXTI_NOT_MASKED
+}EXTI_MASK_STATUS_t;
+/********************** EXTI **********************/
 
 #endif
