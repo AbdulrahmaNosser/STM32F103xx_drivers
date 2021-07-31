@@ -242,4 +242,148 @@ typedef enum STK_enuCALIBBits
 
 /********************** STK **********************/
 
+/********************** NVIC **********************/
+
+typedef struct
+{
+    volatile u32 ISER[3];
+    volatile u32 reserved_1[29];
+    volatile u32 ICER[3];
+    volatile u32 reserved_2[29];
+    volatile u32 ISPR[3];
+    volatile u32 reserved_3[29];
+    volatile u32 ICPR[3];
+    volatile u32 reserved_4[29];
+    volatile u32 IABR[3];
+    volatile u32 reserved_5[61];
+    volatile u32 IPR[9];
+}NVIC_REGISTERS_t;
+
+#define NVIC ((NVIC_REGISTERS_t*) 0xE000E100)
+
+typedef enum NVIC_INTERRUPTS_t
+{
+    ISER_WWDG,
+    ISER_PVD,
+    ISER_TAMPER,
+    ISER_RTC,
+    ISER_FLASH,
+    ISER_RCC,
+    ISER_EXTI0,
+    ISER_EXTI1,
+    ISER_EXTI2,
+    ISER_EXTI3,
+    ISER_EXTI4,
+    ISER_DMA1_Channel1,
+    ISER_DMA1_Channel2,
+    ISER_DMA1_Channel3,
+    ISER_DMA1_Channel4,
+    ISER_DMA1_Channel5,
+    ISER_DMA1_Channel6,
+    ISER_ADC1_2,
+    ISER_USB_HP_CAN_TX,
+    ISER_USB_LP_CAN_RX0,
+    ISER_CAN_RX1,
+    ISER_CAN_SCE,
+    ISER_EXTI9_5,
+    ISER_TIM1_BRK,
+    ISER_TIM1_UP,
+    ISER_TIM1_TRG_COM,
+    ISER_TIM1_CC,
+    ISER_TIM2,
+    ISER_TIM3,
+    ISER_TIM4,
+    ISER_I2C1_EV,
+    ISER_I2C1_ER,
+    ISER_I2C2_EV,
+    ISER_I2C2_ER,
+    ISER_SPI1,
+    ISER_SPI2,
+    ISER_USART1,
+    ISER_USART2,
+    ISER_USART3,
+    ISER_EXTI15_10,
+    ISER_RTCAlarm,
+    ISER_USBWakeup,
+    ISER_TIM8_BRK,
+    ISER_TIM8_UP,
+    ISER_TIM8_TRG_COM,
+    ISER_TIM8_CC,
+    ISER_ADC3,
+    ISER_FSMC,
+    ISER_SDIO,
+    ISER_TIM5,
+    ISER_SPI3,
+    ISER_UART4,
+    ISER_UART5,
+    ISER_TIM6,
+    ISER_TIM7,
+    ISER_DMA2_Channel1,
+    ISER_DMA2_Channel2,
+    ISER_DMA2_Channel3,
+    ISER_DMA2_Channel4_5
+}NVIC_INTERRUPTS_t;
+
+/********************** NVIC **********************/
+
+/********************** SCB **********************/
+
+typedef struct
+{
+    volatile u32 CPUID;
+    volatile u32 ICSR;
+    volatile u32 VTOR;
+    volatile u32 AIRCR;
+    volatile u32 SCR;
+    volatile u32 CCR;
+    volatile u32 SHPR1;
+    volatile u32 SHPR2;
+    volatile u32 SHPR3;
+    volatile u32 SHCRS;
+    volatile u32 CFSR;
+    volatile u32 HFSR;
+    volatile u32 MMAR;
+    volatile u32 BFAR;
+}SCB_REGISTERS_t;
+
+#define SCB ((SCB_REGISTERS_t*) 0xE000ED00)
+
+typedef enum SCB_AIRCR_BITS_t
+{
+    AIRCR_VECTRESET,
+    AIRCR_VECTCLRACTIVE,
+    AIRCR_SYSRESETREQ,
+    AIRCR_bit03_reserved,
+    AIRCR_bit04_reserved,
+    AIRCR_bit05_reserved,
+    AIRCR_bit06_reserved,
+    AIRCR_bit07_reserved,
+    AIRCR_PRIGROUP_0,
+    AIRCR_PRIGROUP_1,
+    AIRCR_PRIGROUP_2,
+    AIRCR_bit11_reserved,
+    AIRCR_bit12_reserved,
+    AIRCR_bit13_reserved,
+    AIRCR_bit14_reserved,
+    AIRCR_ENDIANESS,
+    AIRCR_VECTKEYSTAT_00,
+    AIRCR_VECTKEYSTAT_01,
+    AIRCR_VECTKEYSTAT_02,
+    AIRCR_VECTKEYSTAT_03,
+    AIRCR_VECTKEYSTAT_04,
+    AIRCR_VECTKEYSTAT_05,
+    AIRCR_VECTKEYSTAT_06,
+    AIRCR_VECTKEYSTAT_07,
+    AIRCR_VECTKEYSTAT_08,
+    AIRCR_VECTKEYSTAT_09,
+    AIRCR_VECTKEYSTAT_10,
+    AIRCR_VECTKEYSTAT_11,
+    AIRCR_VECTKEYSTAT_12,
+    AIRCR_VECTKEYSTAT_13,
+    AIRCR_VECTKEYSTAT_14,
+    AIRCR_VECTKEYSTAT_15
+}SCB_AIRCR_BITS_t;
+
+/********************** SCB **********************/
+
 #endif
