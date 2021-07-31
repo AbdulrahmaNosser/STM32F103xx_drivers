@@ -101,6 +101,7 @@ ERROR_STATE_t STK_GetElapsedTime(u32* Copy_pu32ElapsedTime)
     {
         Local_u8ErrorState = STD_TYPES_OK;
 
+        // reads the current and the loaded values of the timer and subtracts them to get the elapsed time 
         *Copy_pu32ElapsedTime = GET_BITS(STK->LOAD, RELOAD, 0xFFFFFF)  - GET_BITS(STK->VAL, CURRENT, 0xFFFFFF);
     }
 
@@ -115,7 +116,6 @@ ERROR_STATE_t STK_GetRemainingTime(u32* Copy_pu32RemainingTime)
     {
         Local_u8ErrorState = STD_TYPES_OK;
 
-        // reads the current and the loaded values of the timer and subtracts them to get the remaining time 
         *Copy_pu32RemainingTime = GET_BITS(STK->LOAD, RELOAD, 0xFFFFFF);
     }
 
@@ -125,6 +125,7 @@ ERROR_STATE_t STK_GetRemainingTime(u32* Copy_pu32RemainingTime)
 void STK_voidStopTimer(void)
 {
     CLR_BIT(STK->CTRL, ENABLE);
+    CLR_BIT(STK->VAL, CURRENT);
 }
 
 ERROR_STATE_t STK_u8PrivateFunctionHandler(void)

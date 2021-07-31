@@ -85,7 +85,7 @@ ERROR_STATE_t GPIO_PinRead   (GPIO_REGISTERS_t* Copy_u8PortAddress, GPIO_u8PinNu
 
     if ( !(Copy_u8PortAddress < GPIOA) || !(Copy_u8PortAddress > GPIOG))
     {
-        *Copy_u8ReturnValue = GET_BIT(Copy_u8PortAddress->ODR, Copy_u8PinNumber);
+        *Copy_u8ReturnValue = GET_BIT(Copy_u8PortAddress->IDR, Copy_u8PinNumber);
     }
     else
     {
