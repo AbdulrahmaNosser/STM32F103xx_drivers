@@ -402,6 +402,7 @@ typedef struct
 
 typedef enum EXTI_ID_t
 {
+    EXTI_ID_GPIOx_00,
     EXTI_ID_GPIOx_01,
     EXTI_ID_GPIOx_02,
     EXTI_ID_GPIOx_03,
@@ -423,11 +424,34 @@ typedef enum EXTI_ID_t
     EXTI_ID_Ethernet
 }EXTI_ID_t;
 
+typedef enum EXTI_VECT_t
+{
+    EXTI_VECT_GPIOx_00,
+    EXTI_VECT_GPIOx_01,
+    EXTI_VECT_GPIOx_02,
+    EXTI_VECT_GPIOx_03,
+    EXTI_VECT_GPIOx_04,
+    EXTI_VECT_GPIOx_05_09,
+    EXTI_VECT_GPIOx_10_15,
+    EXTI_VECT_PVD,
+    EXTI_VECT_RTC,
+    EXTI_VECT_USB,
+    EXTI_VECT_Ethernet
+}EXTI_VECT_t;
+
 typedef enum EXTI_MASK_STATUS_t
 {
     EXTI_MASKED,
     EXTI_NOT_MASKED
 }EXTI_MASK_STATUS_t;
+
+typedef enum EXTI_INTERRUPT_EDGE_t
+{
+    EXTI_EDGE_RISING,
+    EXTI_EDGE_FALLING,
+    EXTI_EDGE_RISING_FALLING
+}EXTI_INTERRUPT_EDGE_t;
+
 /********************** EXTI **********************/
 
 #endif
