@@ -114,6 +114,7 @@ ERROR_STATE_t EXTI_u8SetInterruptCallback(EXTI_VECT_t Copy_u8EXTVect, void (*Cop
 // EXTI IRQ handlers
 void EXTI0_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_GPIOx_00);
     if(Global_pfArray[EXTI_VECT_GPIOx_00] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_00]();
@@ -121,6 +122,7 @@ void EXTI0_IRQHandler(void)
 }
 void EXTI1_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_GPIOx_01);
     if(Global_pfArray[EXTI_VECT_GPIOx_01] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_01]();
@@ -129,6 +131,7 @@ void EXTI1_IRQHandler(void)
 
 void EXTI2_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_GPIOx_02);
     if(Global_pfArray[EXTI_VECT_GPIOx_02] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_02]();
@@ -137,6 +140,7 @@ void EXTI2_IRQHandler(void)
 
 void EXTI3_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_GPIOx_03);
     if(Global_pfArray[EXTI_VECT_GPIOx_03] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_03]();
@@ -145,22 +149,25 @@ void EXTI3_IRQHandler(void)
 
 void EXTI4_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_GPIOx_04);
     if(Global_pfArray[EXTI_VECT_GPIOx_04] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_04]();
     }
 }
-
+//////////////////////////////////// fix
 void EXTI9_5_IRQHandler(void)
 {
+    SET_BITS(EXTI->PR, EXTI_ID_GPIOx_05, 0b11111);
     if(Global_pfArray[EXTI_VECT_GPIOx_05_09] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_05_09]();
     }
 }
-
+//////////////////////////////////// fix
 void EXTI15_10_IRQHandler(void)
 {
+    SET_BITS(EXTI->PR, EXTI_ID_GPIOx_10, 0b111111);
     if(Global_pfArray[EXTI_VECT_GPIOx_10_15] != NULL)
     {
         Global_pfArray[EXTI_VECT_GPIOx_10_15]();
@@ -169,6 +176,7 @@ void EXTI15_10_IRQHandler(void)
 
 void PVD_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_PVD);
     if(Global_pfArray[EXTI_VECT_PVD] != NULL)
     {
         Global_pfArray[EXTI_VECT_PVD]();
@@ -177,6 +185,7 @@ void PVD_IRQHandler(void)
 
 void RTCAlarm_IRQHandler(void)
 {
+    SET_BIT(EXTI->PR, EXTI_ID_RTC);
     if(Global_pfArray[EXTI_VECT_RTC] != NULL)
     {
         Global_pfArray[EXTI_VECT_RTC]();
