@@ -108,3 +108,77 @@ ERROR_STATE_t EXTI_u8SetInterruptCallback(EXTI_VECT_t Copy_u8EXTVect, void (*Cop
 
     return Local_u8ErrorState;
 }
+
+
+
+// EXTI IRQ handlers
+void EXTI0_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_00] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_00]();
+    }
+}
+void EXTI1_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_01] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_01]();
+    }
+}
+
+void EXTI2_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_02] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_02]();
+    }
+}
+
+void EXTI3_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_03] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_03]();
+    }
+}
+
+void EXTI4_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_04] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_04]();
+    }
+}
+
+void EXTI9_5_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_05_09] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_05_09]();
+    }
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_GPIOx_10_15] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_GPIOx_10_15]();
+    }
+}
+
+void PVD_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_PVD] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_PVD]();
+    }
+}
+
+void RTCAlarm_IRQHandler(void)
+{
+    if(Global_pfArray[EXTI_VECT_RTC] != NULL)
+    {
+        Global_pfArray[EXTI_VECT_RTC]();
+    }
+}
