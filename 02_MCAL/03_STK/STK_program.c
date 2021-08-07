@@ -13,13 +13,13 @@ ERROR_STATE_t STK_Init(void)
     ERROR_STATE_t Local_u8ErrorState = STD_TYPES_OK;
     
     // disable timer
-    CLR_BIT(STK->CTRL, ENABLE);
+    BIT_CLR(STK->CTRL, ENABLE);
     
     // select timer clock source
     #if (STK_u8ClockSource == STK_ConfigAHB)
-        SET_BIT(STK->CTRL, CLKSOURCE);
+        BIT_SET(STK->CTRL, CLKSOURCE);
     #elif (STK_u8ClockSource == STK_ConfigAHBDiv8)
-        CLR_BIT(STK->CTRL, CLKSOURCE);
+        BIT_CLR(STK->CTRL, CLKSOURCE);
     #else
         #error "Invalid STK clock source"
     #endif
@@ -35,16 +35,16 @@ ERROR_STATE_t STK_SetBusyWait(u32 Copy_u32NumOfTicks)
     {
         Local_u8ErrorState = STD_TYPES_OK;
         // set the number of ticks
-        SET_BITS(STK->LOAD, RELOAD, Copy_u32NumOfTicks);
+        BITS_SET(STK->LOAD, RELOAD, Copy_u32NumOfTicks);
         // start timer
-        SET_BIT(STK->CTRL, ENABLE);
+        BIT_SET(STK->CTRL, ENABLE);
     }
 
     // wait for timer
-    while (! GET_BIT(STK->CTRL, COUNTFLAG))
+    while (! BIT_GET(STK->CTRL, COUNTFLAG))
     {}
     // disable timer
-    CLR_BIT(STK->CTRL, ENABLE);
+    BIT_CLR(STK->CTRL, ENABLE);
     
     return Local_u8ErrorState;
 }
@@ -57,13 +57,13 @@ ERROR_STATE_t STK_SetIntervalSingle(u32 Copy_u32NumOfTicks, void (*Copy_pFunctio
     {
         Local_u8ErrorState = STD_TYPES_OK;
         // set the number of ticks and enable
-        SET_BITS(STK->LOAD, RELOAD, Copy_u32NumOfTicks);
-        SET_BIT(STK->CTRL, ENABLE);
+        BITS_SET(STK->LOAD, RELOAD, Copy_u32NumOfTicks);
+        BIT_SET(STK->CTRL, ENABLE);
 
         // set call back function
         STK_pFunction = Copy_pFunction;
         // enable interrupt
-        SET_BIT(STK->CTRL, TICKINT);
+        BIT_SET(STK->CTRL, TICKINT);
         // set timer interval mode
         STK_u8TimerIntervalMode == STK_u8TimerSingle;
     }
@@ -79,13 +79,13 @@ ERROR_STATE_t STK_SetIntervalPeriodic(u32 Copy_u32NumOfTicks, void (*Copy_pFunct
     {
         Local_u8ErrorState = STD_TYPES_OK;
         // set the number of ticks and enable
-        SET_BITS(STK->LOAD, RELOAD, (Copy_u32NumOfTicks - 1) );
-        SET_BIT(STK->CTRL, ENABLE);
+        BITS_SET(STK->LOAD, RELOAD, (Copy_u32NumOfTicks - 1) );
+        BIT_SET(STK->CTRL, ENABLE);
 
         // set call back function
         STK_pFunction = Copy_pFunction;
         // enable interrupt
-        SET_BIT(STK->CTRL, TICKINT);
+        BIT_SET(STK->CTRL, TICKINT);
         // set timer interval mode
         STK_u8TimerIntervalMode == STK_u8TimerPeriodic;
     }
@@ -102,7 +102,7 @@ ERROR_STATE_t STK_GetElapsedTime(u32* Copy_pu32ElapsedTime)
         Local_u8ErrorState = STD_TYPES_OK;
 
         // reads the current and the loaded values of the timer and subtracts them to get the elapsed time 
-        *Copy_pu32ElapsedTime = GET_BITS(STK->LOAD, RELOAD, 0xFFFFFF)  - GET_BITS(STK->VAL, CURRENT, 0xFFFFFF);
+        *Copy_pu32ElapsedTime = BITS_CLR(STK->LOAD, RELOAD, 0xFFFFFF)  - BITS_CLR(STK->VAL, CURRENT, 0xFFFFFF);
     }
 
     return Local_u8ErrorState;
@@ -116,7 +116,7 @@ ERROR_STATE_t STK_GetRemainingTime(u32* Copy_pu32RemainingTime)
     {
         Local_u8ErrorState = STD_TYPES_OK;
 
-        *Copy_pu32RemainingTime = GET_BITS(STK->LOAD, RELOAD, 0xFFFFFF);
+        *Copy_pu32RemainingTime = BITS_CLR(STK->LOAD, RELOAD, 0xFFFFFF);
     }
 
     return Local_u8ErrorState;
@@ -124,8 +124,8 @@ ERROR_STATE_t STK_GetRemainingTime(u32* Copy_pu32RemainingTime)
 
 void STK_voidStopTimer(void)
 {
-    CLR_BIT(STK->CTRL, ENABLE);
-    CLR_BIT(STK->VAL, CURRENT);
+    BIT_CLR(STK->CTRL, ENABLE);
+    BIT_CLR(STK->VAL, CURRENT);
 }
 
 ERROR_STATE_t STK_u8PrivateFunctionHandler(void)
@@ -143,13 +143,13 @@ ERROR_STATE_t STK_u8PrivateFunctionHandler(void)
     if (STK_u8TimerIntervalMode == STK_u8TimerSingle)
     {
         // disable interrupt
-        CLR_BIT(STK->CTRL, TICKINT);
+        BIT_CLR(STK->CTRL, TICKINT);
         // disable timer
-        CLR_BIT(STK->CTRL, ENABLE);
+        BIT_CLR(STK->CTRL, ENABLE);
     }
     
     // read to clear the counter flag
-    GET_BIT(STK->CTRL, COUNTFLAG);
+    BIT_GET(STK->CTRL, COUNTFLAG);
     
     return Local_u8ErrorState;
 }

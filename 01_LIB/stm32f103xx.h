@@ -502,9 +502,9 @@ typedef enum DMA_CCR_Bits
 
 typedef enum DMA_ChMode
 {
-    DMA_ChMode_MemoryToPeripheral,
     DMA_ChMode_PeripheralToMemory,
-    DMA_ChMode_MemoryToMemory
+    DMA_ChMode_MemoryToMemory,
+    DMA_ChMode_MemoryToPeripheral
 }DMA_ChMode_t;
 
 typedef enum DMA_ChPriority

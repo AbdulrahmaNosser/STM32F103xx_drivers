@@ -10,13 +10,13 @@ ERROR_STATE_t NVIC_u8EnableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 
     if (Copy_u8InterruptId < 32)
     {
-        SET_BIT(NVIC->ISER[0], Copy_u8InterruptId);
+        BIT_SET(NVIC->ISER[0], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     else if (Copy_u8InterruptId >= 32)
     {
         Copy_u8InterruptId -= 32;
-        SET_BIT(NVIC->ISER[1], Copy_u8InterruptId);
+        BIT_SET(NVIC->ISER[1], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     
@@ -30,13 +30,13 @@ ERROR_STATE_t NVIC_u8DisableInterrupt(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 
     if (Copy_u8InterruptId < 32)
     {
-        SET_BIT(NVIC->ICER[0], Copy_u8InterruptId);
+        BIT_SET(NVIC->ICER[0], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     else if (Copy_u8InterruptId >= 32)
     {
         Copy_u8InterruptId -= 32;
-        SET_BIT(NVIC->ICER[1], Copy_u8InterruptId);
+        BIT_SET(NVIC->ICER[1], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     
@@ -49,13 +49,13 @@ ERROR_STATE_t NVIC_u8SetInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 
     if (Copy_u8InterruptId < 32)
     {
-        SET_BIT(NVIC->ISPR[0], Copy_u8InterruptId);
+        BIT_SET(NVIC->ISPR[0], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     else if (Copy_u8InterruptId >= 32)
     {
         Copy_u8InterruptId -= 32;
-        SET_BIT(NVIC->ISPR[1], Copy_u8InterruptId);
+        BIT_SET(NVIC->ISPR[1], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     
@@ -68,13 +68,13 @@ ERROR_STATE_t NVIC_u8ClearInterruptPending(NVIC_INTERRUPTS_t Copy_u8InterruptId)
 
     if (Copy_u8InterruptId < 32)
     {
-        SET_BIT(NVIC->ICPR[0], Copy_u8InterruptId);
+        BIT_SET(NVIC->ICPR[0], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     else if (Copy_u8InterruptId >= 32)
     {
         Copy_u8InterruptId -= 32;
-        SET_BIT(NVIC->ICPR[1], Copy_u8InterruptId);
+        BIT_SET(NVIC->ICPR[1], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     
@@ -87,13 +87,13 @@ ERROR_STATE_t NVIC_u8InterruptIsActive(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8*
 
     if (Copy_u8InterruptId < 32)
     {
-        *Copy_pu8InterruptStatus = GET_BIT(NVIC->IABR[0], Copy_u8InterruptId);
+        *Copy_pu8InterruptStatus = BIT_GET(NVIC->IABR[0], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     else if (Copy_u8InterruptId >= 32)
     {
         Copy_u8InterruptId -= 32;
-        *Copy_pu8InterruptStatus = GET_BIT(NVIC->IABR[1], Copy_u8InterruptId);
+        *Copy_pu8InterruptStatus = BIT_GET(NVIC->IABR[1], Copy_u8InterruptId);
         Local_u8ErrorState = STD_TYPES_OK;
     }
     
@@ -109,8 +109,8 @@ ERROR_STATE_t NVIC_u8SetGroupPriority(NVIC_INTERRUPTS_t Copy_u8InterruptId, u8 C
 
     SCB->AIRCR = 0x05FA0300;
     
-    CLR_BITS(NVIC->IPR[Local_u8RegisterNumebr], Local_u8ByteNumber, 0b0000);
-    SET_BITS(NVIC->IPR[Local_u8RegisterNumebr], Local_u8ByteNumber, Copy_u8GroupPriority);
+    BITS_CLR(NVIC->IPR[Local_u8RegisterNumebr], Local_u8ByteNumber, 0b0000);
+    BITS_SET(NVIC->IPR[Local_u8RegisterNumebr], Local_u8ByteNumber, Copy_u8GroupPriority);
 
     return Local_u8ErrorState;
 }

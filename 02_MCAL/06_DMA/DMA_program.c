@@ -12,97 +12,27 @@ ERROR_STATE_t DMA_u8ChannelInit(DMA_ConfigVars_t* Copy_pstrChConfigVars)
     {
         Local_ErrorState = STD_TYPES_OK;
         u8 ChNum = Copy_pstrChConfigVars->ChannelNumber - 1;
-        
+
+        // clear register bits
+        BITS_CLR(DMA->Channel[ChNum].CCR, DIR, 0x00 );
+
         // channel transfer mode
-        if (Copy_pstrChConfigVars->ChannelMode == DMA_ChMode_MemoryToPeripheral)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, MEM2MEM);
-            SET_BIT(DMA->Channel[ChNum].CCR, DIR);
-        }
-        else if (Copy_pstrChConfigVars->ChannelMode == DMA_ChMode_PeripheralToMemory)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, MEM2MEM);
-            CLR_BIT(DMA->Channel[ChNum].CCR, DIR);
-        }
-        else if (Copy_pstrChConfigVars->ChannelMode == DMA_ChMode_MemoryToMemory)
-        {
-            SET_BIT(DMA->Channel[ChNum].CCR, MEM2MEM);
-            CLR_BIT(DMA->Channel[ChNum].CCR, DIR);
-        }
+        BITS_SET(DMA->Channel[ChNum].CCR, MEM2MEM, (Copy_pstrChConfigVars->ChannelMode & 0b01) );
+        BITS_SET(DMA->Channel[ChNum].CCR, DIR, (Copy_pstrChConfigVars->ChannelMode & 0b10) );
 
         // channel priority
-        if (Copy_pstrChConfigVars->ChannelPriority == DMA_ChPriority_Low)
-        {
-            CLR_BITS(DMA->Channel[ChNum].CCR, PL0, 0b00);
-        }
-        else if (Copy_pstrChConfigVars->ChannelPriority == DMA_ChPriority_Medium)
-        {
-            SET_BIT(DMA->Channel[ChNum].CCR, PL0);
-            CLR_BIT(DMA->Channel[ChNum].CCR, PL1);
-        }
-        else if (Copy_pstrChConfigVars->ChannelPriority == DMA_ChPriority_High)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, PL0);
-            SET_BIT(DMA->Channel[ChNum].CCR, PL1);
-        }
-        else if (Copy_pstrChConfigVars->ChannelPriority == DMA_ChPriority_VeryHigh)
-        {
-            SET_BITS(DMA->Channel[ChNum].CCR, PL0, 0b11);
-        }
-        
+        BITS_SET(DMA->Channel[ChNum].CCR, PL0, Copy_pstrChConfigVars->ChannelPriority);
+
         // channel channel size
-        if (Copy_pstrChConfigVars->ChannelSize == DMA_ChSize_8Bits)
-        {
-            CLR_BITS(DMA->Channel[ChNum].CCR, MSIZE0, 0b00);
-        }
-        else if (Copy_pstrChConfigVars->ChannelSize == DMA_ChSize_16Bits)
-        {
-            SET_BIT(DMA->Channel[ChNum].CCR, MSIZE0);
-            CLR_BIT(DMA->Channel[ChNum].CCR, MSIZE1);
-        }
-        else if (Copy_pstrChConfigVars->ChannelSize == DMA_ChSize_32Bits)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, MSIZE0);
-            SET_BIT(DMA->Channel[ChNum].CCR, MSIZE1);
-        }
-
-        // channel peripheral size
-        if (Copy_pstrChConfigVars->PeripheralSize == DMA_PeripheralSize_8Bits)
-        {
-            CLR_BITS(DMA->Channel[ChNum].CCR, PSIZE0, 0b00);
-        }
-        else if (Copy_pstrChConfigVars->PeripheralSize == DMA_PeripheralSize_16Bits)
-        {
-            SET_BIT(DMA->Channel[ChNum].CCR, PSIZE0);
-            CLR_BIT(DMA->Channel[ChNum].CCR, PSIZE1);
-        }
-        else if (Copy_pstrChConfigVars->PeripheralSize == DMA_PeripheralSize_32Bits)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, PSIZE0);
-            SET_BIT(DMA->Channel[ChNum].CCR, PSIZE1);
-        }
-
+        BITS_SET(DMA->Channel[ChNum].CCR, MSIZE0, Copy_pstrChConfigVars->ChannelSize);
+        BITS_SET(DMA->Channel[ChNum].CCR, PSIZE0, Copy_pstrChConfigVars->PeripheralSize);
+        
         // channel increment mode
-        if (Copy_pstrChConfigVars->IncrementMode == DMA_IncrementMode_IncrementDisable)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, MINC);
-            CLR_BIT(DMA->Channel[ChNum].CCR, PINC);
-        }
-        else if (Copy_pstrChConfigVars->IncrementMode == DMA_IncrementMode_IncrementEnable)
-        {
-            SET_BIT(DMA->Channel[ChNum].CCR, MINC);
-            SET_BIT(DMA->Channel[ChNum].CCR, PINC);
-        }
+        BITS_SET(DMA->Channel[ChNum].CCR, MINC, Copy_pstrChConfigVars->IncrementMode);
+        BITS_SET(DMA->Channel[ChNum].CCR, PINC, Copy_pstrChConfigVars->IncrementMode);
 
         // channel circular mode
-        if (Copy_pstrChConfigVars->CircularMode == DMA_CircularMode_Disable)
-        {
-            CLR_BIT(DMA->Channel[ChNum].CCR, CIRC);
-        }
-        else if (Copy_pstrChConfigVars->IncrementMode == DMA_CircularMode_Enable)
-        {
-            SET_BIT(DMA->Channel[ChNum].CCR, CIRC);
-        }
+        BITS_SET(DMA->Channel[ChNum].CCR, CIRC, Copy_pstrChConfigVars->CircularMode);
     }
     
     return Local_ErrorState;
