@@ -112,9 +112,9 @@ ERROR_STATE_t DMA_u8ChannelTransferBusy(DMA_ConfigVars_t* Copy_pstrChConfigVars,
 
     // wait for data transfer completion then clear the flag
     u8 Local_TCIFx = (ChNum * 3) + 4;
-    while(!BIT_GET(DMA->ISR, Local_TCIFx - 1))
+    while(!BIT_GET(DMA->IFCR, Local_TCIFx - 1))
     {
-        BIT_SET(DMA->ISR, Local_TCIFx);
+        BIT_SET(DMA->IFCR, Local_TCIFx);
     }
 
     return Local_ErrorState;
@@ -137,7 +137,7 @@ ERROR_STATE_t DMA_u8SetInterruptCallBack(DMA_ConfigVars_t* Copy_pstrChConfigVars
 
 void DMA1_Channel1_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF1);
+    BIT_SET(DMA->IFCR, CTCIF1);
     if (Global_pfArr[0] != NULL_p_t)
     {
         Global_pfArr[0]();
@@ -146,7 +146,7 @@ void DMA1_Channel1_IRQHandler(void)
 
 void DMA1_Channel2_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF2);
+    BIT_SET(DMA->IFCR, CTCIF2);
     if (Global_pfArr[1] != NULL_p_t)
     {
         Global_pfArr[1]();
@@ -155,7 +155,7 @@ void DMA1_Channel2_IRQHandler(void)
 
 void DMA1_Channel3_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF3);
+    BIT_SET(DMA->IFCR, CTCIF3);
     if (Global_pfArr[2] != NULL_p_t)
     {
         Global_pfArr[2]();
@@ -164,7 +164,7 @@ void DMA1_Channel3_IRQHandler(void)
 
 void DMA1_Channel4_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF4);
+    BIT_SET(DMA->IFCR, CTCIF4);
     if (Global_pfArr[3] != NULL_p_t)
     {
         Global_pfArr[3]();
@@ -173,7 +173,7 @@ void DMA1_Channel4_IRQHandler(void)
 
 void DMA1_Channel5_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF5);
+    BIT_SET(DMA->IFCR, CTCIF5);
     if (Global_pfArr[4] != NULL_p_t)
     {
         Global_pfArr[4]();
@@ -182,7 +182,7 @@ void DMA1_Channel5_IRQHandler(void)
 
 void DMA1_Channel6_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF6);
+    BIT_SET(DMA->IFCR, CTCIF6);
     if (Global_pfArr[5] != NULL_p_t)
     {
         Global_pfArr[5]();
@@ -191,7 +191,7 @@ void DMA1_Channel6_IRQHandler(void)
 
 void DMA1_Channel7_IRQHandler(void)
 {
-    BIT_SET(DMA->ISR, TCIF7);
+    BIT_SET(DMA->IFCR, CTCIF7);
     if (Global_pfArr[6] != NULL_p_t)
     {
         Global_pfArr[6]();

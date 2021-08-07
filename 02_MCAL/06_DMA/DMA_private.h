@@ -3,40 +3,40 @@
 
     enum DMA_ISR_BITS
     {
-        GIF1,
-        TCIF1,
-        HTIF1,
-        TEIF1,
+        CGIF1,
+        CTCIF1,
+        CHTIF1,
+        CTEIF1,
 
-        GIF2,
-        TCIF2,
-        HTIF2,
-        TEIF2,
+        CGIF2,
+        CTCIF2,
+        CHTIF2,
+        CTEIF2,
 
-        GIF3,
-        TCIF3,
-        HTIF3,
-        TEIF3,
+        CGIF3,
+        CTCIF3,
+        CHTIF3,
+        CTEIF3,
 
-        GIF4,
-        TCIF4,
-        HTIF4,
-        TEIF4,
+        CGIF4,
+        CTCIF4,
+        CHTIF4,
+        CTEIF4,
 
-        GIF5,
-        TCIF5,
-        HTIF5,
-        TEIF5,
+        CGIF5,
+        CTCIF5,
+        CHTIF5,
+        CTEIF5,
 
-        GIF6,
-        TCIF6,
-        HTIF6,
-        TEIF6,
+        CGIF6,
+        CTCIF6,
+        CHTIF6,
+        CTEIF6,
 
-        GIF7,
-        TCIF7,
-        HTIF7,
-        TEIF7
+        CGIF7,
+        CTCIF7,
+        CHTIF7,
+        CTEIF7
     };
     
 #endif
