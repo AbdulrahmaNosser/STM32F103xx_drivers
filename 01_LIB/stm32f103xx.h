@@ -85,7 +85,17 @@ enum RCC_CFGR_BITS
 
 enum RCC_AHBENR_BITS
 {
-    SDIOEN  = 10    
+    DMA1EN,
+    DMA2EN,
+    SRAMEN,
+    Res03,
+    FLITFEN,
+    Res05,
+    CRCEN,
+    Res07,
+    FSMCEN,
+    Res09,
+    SDIOEN
 };
 
 enum RCC_APB2ENR_BITS
@@ -480,21 +490,21 @@ typedef struct
 
 typedef enum DMA_CCR_Bits
 {
-    MEM2MEM,
-    PL0,
-    PL1,
-    MSIZE0,
-    MSIZE1,
+    EN,
+    TCIE,
+    HTIE,
+    TEIE,
+    DIR,
+    CIRC,
+    PINC,
+    MINC,
     PSIZE0,
     PSIZE1,
-    MINC,
-    PINC,
-    CIRC,
-    DIR,
-    TEIE,
-    HTIE,
-    TCIE,
-    EN
+    MSIZE0,
+    MSIZE1,
+    PL0,
+    PL1,
+    MEM2MEM,
 }DMA_CCR_Bits_t;
 
 
@@ -515,19 +525,12 @@ typedef enum DMA_ChPriority
     DMA_ChPriority_VeryHigh
 }DMA_ChPriority_t;
 
-typedef enum DMA_ChSize
+typedef enum DMA_DataSize
 {
-    DMA_ChSize_8Bits,
-    DMA_ChSize_16Bits,
-    DMA_ChSize_32Bits
-}DMA_ChSize_t;
-
-typedef enum DMA_PeripheralSize
-{
-    DMA_PeripheralSize_8Bits,
-    DMA_PeripheralSize_16Bits,
-    DMA_PeripheralSize_32Bits
-}DMA_PeripheralSize_t;
+    DMA_DataSize_8Bits,
+    DDMA_DataSize_16Bits,
+    DMA_DataSize_32Bits
+}DMA_DataSize_t;
 
 typedef enum DMA_IncrementMode
 {

@@ -6,8 +6,8 @@ typedef struct
     u8 ChannelNumber;
     DMA_ChMode_t ChannelMode;
     DMA_ChPriority_t ChannelPriority;
-    DMA_ChSize_t ChannelSize;
-    DMA_PeripheralSize_t PeripheralSize;
+    DMA_DataSize_t ChannelSize;
+    DMA_DataSize_t PeripheralSize;
     DMA_IncrementMode_t IncrementMode;
     DMA_CircularMode_t CircularMode;
     DMA_Interrupt_t InterruptMode;
