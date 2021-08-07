@@ -124,7 +124,7 @@ ERROR_STATE_t DMA_u8ChannelTransferBusy(DMA_ConfigVars_t* Copy_pstrChannelConfig
 }
 
 
-ERROR_STATE_t DMA_u8ChannelTransferBusy(DMA_ConfigVars_t* Copy_pstrChannelConfigVars,void (*pf)(void))
+ERROR_STATE_t DMA_u8SetInterruptCallBack(DMA_ConfigVars_t* Copy_pstrChannelConfigVars,void (*pf)(void))
 {
     ERROR_STATE_t Local_ErrorState = STD_TYPES_NOK;
 
