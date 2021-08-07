@@ -454,4 +454,101 @@ typedef enum EXTI_INTERRUPT_EDGE_t
 
 /********************** EXTI **********************/
 
+/********************** DMA **********************/
+
+
+typedef struct DMA_ChannelRegisters
+{
+    volatile u32 CCR;
+    volatile u32 CNDTR;
+    volatile u32 CPAR;
+    volatile u32 CMAR;
+    volatile u32 reserved;
+}DMA_ChannelRegisters_t;
+
+typedef struct
+{
+    volatile u32 ISR;
+    volatile u32 IFCR;
+    volatile DMA_ChannelRegisters_t Channel[7];
+}DMA_REGISTERS_t;
+
+#define DMA ((DMA_REGISTERS_t*)0x40020000)
+
+
+/********** DMA registers' bits ***********/
+
+typedef enum DMA_CCR_Bits
+{
+    MEM2MEM,
+    PL0,
+    PL1,
+    MSIZE0,
+    MSIZE1,
+    PSIZE0,
+    PSIZE1,
+    MINC,
+    PINC,
+    CIRC,
+    DIR,
+    TEIE,
+    HTIE,
+    TCIE,
+    EN
+}DMA_CCR_Bits_t;
+
+
+/********** DMA Config types ***********/
+
+typedef enum DMA_ChMode
+{
+    DMA_ChMode_MemoryToPeripheral,
+    DMA_ChMode_PeripheralToMemory,
+    DMA_ChMode_MemoryToMemory
+}DMA_ChMode_t;
+
+typedef enum DMA_ChPriority
+{
+    DMA_ChPriority_Low,
+    DMA_ChPriority_Medium,
+    DMA_ChPriority_High,
+    DMA_ChPriority_VeryHigh
+}DMA_ChPriority_t;
+
+typedef enum DMA_ChSize
+{
+    DMA_ChSize_8Bits,
+    DMA_ChSize_16Bits,
+    DMA_ChSize_32Bits
+}DMA_ChSize_t;
+
+typedef enum DMA_PeripheralSize
+{
+    DMA_PeripheralSize_8Bits,
+    DMA_PeripheralSize_16Bits,
+    DMA_PeripheralSize_32Bits
+}DMA_PeripheralSize_t;
+
+typedef enum DMA_IncrementMode
+{
+    DMA_IncrementMode_IncrementDisable,
+    DMA_IncrementMode_IncrementEnable
+}DMA_IncrementMode_t;
+
+typedef enum DMA_CircularMode
+{
+    DMA_CircularMode_Disable,
+    DMA_CircularMode_Enable,
+}DMA_CircularMode_t;
+
+typedef enum DMA_Interrupt
+{
+    DMA_Interrupt_Disable,
+    DMA_Interrupt_Enable,
+}DMA_Interrupt_t;
+
+/********** DMA Config types ***********/
+
+/********************** DMA **********************/
+
 #endif
