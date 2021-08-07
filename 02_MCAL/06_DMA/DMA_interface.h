@@ -13,12 +13,12 @@ typedef struct
     DMA_Interrupt_t InterruptMode;
 }DMA_ConfigVars_t;
 
-    ERROR_STATE_t DMA_u8ChannelInit(DMA_ConfigVars_t* Copy_pstrChannelConfigVars);
+    ERROR_STATE_t DMA_u8ChannelInit(DMA_ConfigVars_t* Copy_pstrChConfigVars);
 
-    ERROR_STATE_t DMA_u8ChannelTransfer(DMA_ConfigVars_t* Copy_pstrChannelConfigVars, u32 Copy_u32Source, u32 Copy_u32Destination, u32 Copy_u32TransfersNumber);
+    ERROR_STATE_t DMA_u8ChannelTransfer(DMA_ConfigVars_t* Copy_pstrChConfigVars, u32 Copy_u32Source, u32 Copy_u32Destination, u16 Copy_u16TransfersNumber);
 
-    ERROR_STATE_t DMA_u8ChannelTransferBusy(DMA_ConfigVars_t* Copy_pstrChannelConfigVars, u32 Copy_u32Source, u32 Copy_u32Destination, u32 Copy_u32TransfersNumber);
+    ERROR_STATE_t DMA_u8ChannelTransferBusy(DMA_ConfigVars_t* Copy_pstrChConfigVars, u32 Copy_u32Source, u32 Copy_u32Destination, u16 Copy_u16TransfersNumber);
 
-    ERROR_STATE_t DMA_u8SetInterruptCallBack(DMA_ConfigVars_t* Copy_pstrChannelConfigVars,void (*pf)(void));
+    ERROR_STATE_t DMA_u8SetInterruptCallBack(DMA_ConfigVars_t* Copy_pstrChConfigVars,void (*pf)(void));
 
 #endif 
